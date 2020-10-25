@@ -1,0 +1,6 @@
+﻿namespace VerticalCamera
+{
+    class VertCamFix
+    {
+    }
+}
