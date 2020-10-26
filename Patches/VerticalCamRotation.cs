@@ -8,7 +8,6 @@ using System.Reflection.Emit;
 using System.Linq;
 using Kingmaker;
 using static VerticalCamera.Main;
-using BagOfTricks;
 
 namespace VerticalCamera.Patches
 {
