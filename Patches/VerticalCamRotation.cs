@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Linq;
 using Kingmaker;
 using static VerticalCamera.Main;
+using BagOfTricks;
 
 namespace VerticalCamera.Patches
 {
@@ -39,9 +40,9 @@ namespace VerticalCamera.Patches
 							break;
                         }
 					}
-					Mod.Debug(codes[found+2].opcode);
-					codes[found+2].opcode = OpCodes.Ldsfld;
-					codes[found+2].operand = cameraRotation;
+					codes[found].opcode = OpCodes.Ldsfld;
+					codes[found].operand = AccessTools.Field(typeof(VCam), nameof(cameraRotation));
+					
 					return codes.AsEnumerable();
 				}
 				return codes.AsEnumerable();
@@ -53,6 +54,7 @@ namespace VerticalCamera.Patches
 		{
 			static bool Prefix(ref float ___m_ScrollSpeed)
 			{
+				var yRot = Game.Instance.UI.GetCameraRig().transform.rotation.y;
 				if (true)
 				{
 					if (Input.GetKey(cameraTurnLeft))
@@ -82,7 +84,7 @@ namespace VerticalCamera.Patches
 					{
 						return true;
 					}
-					Game.Instance.UI.GetCameraRig().SetRotation(cameraRotation);
+                    Game.Instance.UI.GetCameraRig().SetRotation(yRot);
 					return true;
 				}
 				return true;
